@@ -41,27 +41,28 @@ function Overview() {
   return (
     <>
       <SideBar />
-        <Layout className="site-layout" style={{ marginLeft: 200 }}>
-      <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
-        <List
-          grid={{ gutter: 16, column: 4 }}
-          dataSource={rider_data}
-          renderItem={(item) => (
-            <List.Item>
-              <Card title={item.title}>{item.count}</Card>
-            </List.Item>
-          )}
-        />
-        <List
-          grid={{ gutter: 16, column: 3 }}
-          dataSource={packages}
-          renderItem={(item) => (
-            <List.Item>
-              <Card title={item.title}>{item.count}</Card>
-            </List.Item>
-          )}
-        />
-      </Content></Layout>
+      <Layout className="site-layout" style={{ marginLeft: 200 }}>
+        <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+          <List
+            grid={{ gutter: 16, column: 4 }}
+            dataSource={rider_data}
+            renderItem={(item) => (
+              <List.Item>
+                <Card title={item.title}>{item.count}</Card>
+              </List.Item>
+            )}
+          />
+          <List
+            grid={{ gutter: 16, column: 3 }}
+            dataSource={packages}
+            renderItem={(item) => (
+              <List.Item>
+                <Card title={item.title}>{item.count}</Card>
+              </List.Item>
+            )}
+          />
+        </Content>
+      </Layout>
     </>
   );
 }

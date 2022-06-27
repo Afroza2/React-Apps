@@ -1,59 +1,134 @@
-import { Form, Input, Button, Checkbox } from "antd";
-import React, { Component } from "react";
+import React, { useState } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+// import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
 
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
+const login_url = "https://api.holoapp.tech/accounts/login";
 
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    margin: theme.spacing(12, 20),
+    alignItems: "center",
+  },
+  paper: {
 
-class Login extends Component {
-  render() {
-    return (
-      <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <Form.Item
-          label="Username"
-          name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
-        >
-          <Input />
-        </Form.Item>
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%",
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password />
-        </Form.Item>
+export default function Login() {
+  const classes = useStyles();
+  const [data, setData] = useState({
+    username: "",
+    password: "",
+  });
 
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 8, span: 16 }}
-        >
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setData({
+      ...data,
+      [e.target.name]: value,
+    });
+  };
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Login
-          </Button>
-        </Form.Item>
-      </Form>
-    );
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userData = {
+      username: data.username,
+      password: data.password,
+    };
+    axios
+      .post(login_url, userData)
+      .then((response) => {
+        if(response.status === 200){
+             localStorage.setItem('accessToken', response.data['access'])
+        localStorage.setItem('refreshToken', response.data['refresh'])
+        console.log(response.status);
+        console.log(response.data);
+        console.log(response.data['access'])
+          // window.location.href = "/ongoing";
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("server responded");
+        } else if (error.request) {
+          console.log("network error");
+        } else {
+          console.log(error);
+        }
+      });
+  };
+
+  return (
+    <Grid container className={classes.root} item xs={12} md={5}>
+      <CssBaseline />
+
+      <Grid>
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            <TextField
+              label="Username"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              name="username"
+              value={data.username}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Password"
+              type={'password'}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="password"
+              name="password"
+              value={data.password}
+              onChange={handleChange}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+          </form>
+        </div>
+      </Grid>
+    </Grid>
+  );
 }
-
-
-export default Login;
