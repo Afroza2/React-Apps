@@ -20,9 +20,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(12, 20),
     alignItems: "center",
   },
-  paper: {
-
-  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -60,13 +57,13 @@ export default function Login() {
     axios
       .post(login_url, userData)
       .then((response) => {
-        if(response.status === 200){
-             localStorage.setItem('accessToken', response.data['access'])
-        localStorage.setItem('refreshToken', response.data['refresh'])
-        console.log(response.status);
-        console.log(response.data);
-        console.log(response.data['access'])
-          // window.location.href = "/ongoing";
+        if (response.status === 200) {
+          localStorage.setItem("accessToken", response.data["access"]);
+          localStorage.setItem("refreshToken", response.data["refresh"]);
+          console.log(response.status);
+          console.log(response.data);
+          console.log(response.data["access"]);
+          window.location.href = "/ongoing";
         }
       })
       .catch((error) => {
@@ -86,48 +83,46 @@ export default function Login() {
       <CssBaseline />
 
       <Grid>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
-              label="Username"
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              name="username"
-              value={data.username}
-              onChange={handleChange}
-            />
-            <TextField
-              label="Password"
-              type={'password'}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="password"
-              name="password"
-              value={data.password}
-              onChange={handleChange}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-          </form>
-        </div>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+          <TextField
+            label="Username"
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            name="username"
+            value={data.username}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Password"
+            type={"password"}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="password"
+            name="password"
+            value={data.password}
+            onChange={handleChange}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign In
+          </Button>
+        </form>
       </Grid>
     </Grid>
   );
