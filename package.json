@@ -15,6 +15,7 @@
     "antd": "^4.19.5",
     "axios": "^0.26.1",
     "leaflet": "^1.7.1",
+    "mui-datatables": "^4.2.2",
     "prettier": "^2.6.2",
     "react": "17.0",
     "react-dom": "17.0",

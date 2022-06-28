@@ -111,7 +111,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-const drawerWidth = 240;
+const drawerWidth = 150;
 
 export default function SideBar() {
   return (
@@ -147,7 +147,7 @@ export default function SideBar() {
           </ListItem>
           <ListItem disablePadding>
             <ListItemButton>
-              <Link to="/overview">
+              <Link to="/completed">
                 <ListItemText primary="Overview" style={{ color: '#000' }}/>
               </Link>
             </ListItemButton>

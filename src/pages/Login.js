@@ -3,12 +3,14 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
+import Alert from "@mui/material/Alert";
 // import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
+import Stack from "@mui/material/Stack";
 
 const login_url = "https://api.holoapp.tech/accounts/login";
 
@@ -40,6 +42,9 @@ export default function Login() {
     password: "",
   });
 
+  const [errors, setErrors] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("")
+
   const handleChange = (e) => {
     const value = e.target.value;
     setData({
@@ -47,6 +52,10 @@ export default function Login() {
       [e.target.name]: value,
     });
   };
+
+  // const tokenChecking = ( access, refresh, data) => {
+  //
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,14 +71,18 @@ export default function Login() {
           localStorage.setItem("refreshToken", response.data["refresh"]);
           console.log(response.status);
           console.log(response.data);
-          console.log(response.data["access"]);
-          window.location.href = "/ongoing";
+          console.log("access", response.data["access"]);
+          console.log("refresh", response.data["refresh"]);
+          console.log("local storage", localStorage.getItem("accessToken"));
+          window.location.href = "/completed";
         }
       })
       .catch((error) => {
         if (error.response) {
           console.log(error.response);
           console.log("server responded");
+          setErrors(true);
+          setErrorMsg(error.response.data.detail)
         } else if (error.request) {
           console.log("network error");
         } else {
@@ -123,6 +136,15 @@ export default function Login() {
             Sign In
           </Button>
         </form>
+        <Stack sx={{ width: "100%" }} spacing={2}>
+          {errors ? (
+            <Alert severity="error">
+              {errorMsg}
+            </Alert>
+          ) : (
+            ""
+          )}
+        </Stack>
       </Grid>
     </Grid>
   );
