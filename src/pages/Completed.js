@@ -2,18 +2,17 @@ import React, { useState, useEffect } from "react";
 import SideBar from "../component/SideBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { Paper } from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
+
+import { TableData } from "../component/TableData";
+import Grid from "@mui/material/Grid";
 
 const rider_list_url = "https://api.holoapp.tech/rides/brta/get-brta-ride-list";
-
+const ride_details_url = "https://api.holoapp.tech/rides/brta/get-brta-ride-details"
 const refresh_url = "https://api.holoapp.tech/accounts/refresh";
 const logout_url = "https://api.holoapp.tech/accounts/logout";
 const access = localStorage.getItem("accessToken");
@@ -23,8 +22,29 @@ const headers = {
   Authorization: `Bearer ${access}`,
 };
 
-function Completed(url, config) {
+function Completed() {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      height: "100vh",
+      display: "flex",
+      flexDirection: "row",
+      margin: theme.spacing(20, 20),
+      alignItems: "center",
+    },
+    form: {
+      width: "100%",
+      marginTop: theme.spacing(1),
+    },
+    // search: {
+    //   margin: theme.spacing(3)
+    // },
+    submit: {
+      margin: theme.spacing(3),
+    },
+  }));
+  const classes = useStyles();
   const [riderList, setRiderList] = useState([]);
+  const [riderListFull, setRiderListFull] = useState([]);
 
   const [data, setData] = useState({
     phone: "",
@@ -32,6 +52,20 @@ function Completed(url, config) {
 
   const [errors, setErrors] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(rider_list_url, {
+        headers: headers,
+      })
+      .then((response) => {
+        setRiderListFull(response.data);
+        // console.log("list", riderList, response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [riderListFull]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -50,11 +84,12 @@ function Completed(url, config) {
       params: params,
       headers: headers,
     };
+
     axios
       .get(rider_list_url, config)
       .then((response) => {
         setRiderList(response.data);
-        console.log("list", riderList, response.data);
+        // console.log("list", riderList, response.data);
       })
       .catch((error) => {
         if (error.response.status === 401) {
@@ -97,29 +132,42 @@ function Completed(url, config) {
         alignItems="center"
         minHeight="100vh"
       >
-        <form noValidate onSubmit={handleSubmit}>
-          <TextField
-            label="search"
-            type={"search"}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="phone"
-            name="phone"
-            value={data.phone}
-            onChange={handleChange}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            // className={classes.submit}
-          >
-            Search
-          </Button>
-        </form>
+        {" "}
+        <Grid container className={classes.root} item xs={14} md={8}>
+          <CssBaseline />
+          <form noValidate onSubmit={handleSubmit}>
+            <TextField
+              // label="Search"
+              type={"search"}
+              variant="outlined"
+              margin="normal"
+              required
+              // fullWidth
+              id="phone"
+              name="phone"
+              value={data.phone}
+              onChange={handleChange}
+            />
+            <Button
+              type="submit"
+              // fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Search
+            </Button>
+          </form>
+
+          <div style={{ height: 500, width: "100%" }}>
+            <CssBaseline />
+            {data.phone.length === 0 ? (
+              <TableData riders={riderListFull} />
+            ) : (
+              <TableData riders={riderList} />
+            )}
+          </div>
+        </Grid>
       </Box>
     </>
   );
