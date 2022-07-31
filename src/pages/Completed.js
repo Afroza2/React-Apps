@@ -6,8 +6,7 @@ import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Paper } from "@mui/material";
-import { makeStyles } from "@material-ui/core/styles";
-
+import {useStyles} from '../styles.js'
 import { TableData } from "../component/TableData";
 import Grid from "@mui/material/Grid";
 
@@ -22,27 +21,9 @@ const headers = {
   Authorization: `Bearer ${access}`,
 };
 
-function Completed() {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      height: "100vh",
-      display: "flex",
-      flexDirection: "row",
-      margin: theme.spacing(20, 20),
-      alignItems: "center",
-    },
-    form: {
-      width: "100%",
-      marginTop: theme.spacing(1),
-    },
-    // search: {
-    //   margin: theme.spacing(3)
-    // },
-    submit: {
-      margin: theme.spacing(3),
-    },
-  }));
-  const classes = useStyles();
+function Completed(props) {
+
+  const classes = useStyles(props);
   const [riderList, setRiderList] = useState([]);
   const [riderListFull, setRiderListFull] = useState([]);
 
@@ -74,6 +55,7 @@ function Completed() {
       [e.target.name]: value,
     });
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -153,7 +135,7 @@ function Completed() {
               // fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
+              className={classes.search}
             >
               Search
             </Button>

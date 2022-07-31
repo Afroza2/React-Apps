@@ -8,35 +8,16 @@ import Alert from "@mui/material/Alert";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import Stack from "@mui/material/Stack";
+import {useStyles} from '../styles.js'
+
+
 
 const login_url = "https://api.holoapp.tech/accounts/login";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    margin: theme.spacing(12, 20),
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%",
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
-export default function Login() {
-  const classes = useStyles();
+export default function Login(props) {
+  const classes = useStyles(props);
   const [data, setData] = useState({
     username: "",
     password: "",
