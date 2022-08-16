@@ -3,7 +3,7 @@ import "./App.css";
 import Login from "./pages/Login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Ongoing from "./pages/Ongoing";
+import MapOngoing from "./pages/MapOngoing";
 import Completed from "./pages/Completed";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -26,7 +26,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/completed" element={<Completed />} />
-              <Route path="/ongoing" element={<Ongoing />} />
+              {/*<Route path="/ongoing" element={<MapOngoing />} />*/}
             </Routes>
           </BrowserRouter>
         </Grid>

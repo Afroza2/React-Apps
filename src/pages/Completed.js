@@ -8,10 +8,10 @@ import Button from "@material-ui/core/Button";
 import { Paper } from "@mui/material";
 import {useStyles} from '../styles.js'
 import { TableData } from "../component/TableData";
+import {MarkerList} from "../component/MarkerList"
 import Grid from "@mui/material/Grid";
 
 const rider_list_url = "https://api.holoapp.tech/rides/brta/get-brta-ride-list";
-const ride_details_url = "https://api.holoapp.tech/rides/brta/get-brta-ride-details"
 const refresh_url = "https://api.holoapp.tech/accounts/refresh";
 const logout_url = "https://api.holoapp.tech/accounts/logout";
 const access = localStorage.getItem("accessToken");

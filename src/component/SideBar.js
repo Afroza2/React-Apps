@@ -24,7 +24,7 @@
 //             <Link to="/overview">Overview</Link>
 //           </Menu.Item>
 //           <Menu.Item key="2">
-//             <Link to="/ongoing">Ongoing Rides</Link>
+//             <Link to="/ongoing">MapOngoing Rides</Link>
 //           </Menu.Item>
 //           <Menu.Item key="3">
 //             <Link to="/riderlist">Rider List</Link>
@@ -141,7 +141,7 @@ export default function SideBar() {
           <ListItem disablePadding>
             <ListItemButton>
               <Link to="/ongoing">
-                <ListItemText primary="Ongoing" style={{ color: '#000' }}/>
+                <ListItemText primary="MapOngoing" style={{ color: '#000' }}/>
               </Link>
             </ListItemButton>
           </ListItem>

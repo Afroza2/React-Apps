@@ -11,8 +11,8 @@ import "leaflet/dist/leaflet.css";
 import Stack from "@mui/material/Stack";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
-
-const onSearch = (value) => console.log(value);
+import markerIconPng from "leaflet/dist/images/marker-icon.png";
+import { Icon } from "leaflet";
 
 const pathIcon = L.icon({
   iconUrl: "../public/map-icons/path.png",
@@ -48,42 +48,39 @@ const endP = 0;
 const startR = 0;
 const endR = 0;
 
-function Ongoing() {
-
-
-  const data = [
-    {
-      position: { lat: 23.73861524857593, long: 90.37859276390634 },
-      title: "Passenger",
-      iconName: "man.png",
-    },
-    {
-      position: { lat: 23.756337559874982, long: 90.37540465834333 },
-      title: "Rider",
-      iconName: "location.png",
-    },
-  ];
-
+function MapOngoing({ center, riderList }) {
   return (
-    <>
-      <SideBar />
+    <div>
+        <div><p>map</p></div>
       <MapContainer
-        center={[center_lat, center_long]}
+        center={center}
         zoom={16}
         scrollWheelZoom={false}
-        style={{  height: "400px", width: "700px"}}
+        style={{ height: "400px", width: "700px" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-
-        {/*// <Marker position={[lat, long]}>*/}
-        {/*//   <Popup>Holo</Popup>*/}
-        {/*// </Marker>*/}
+        {riderList.length > 0 &&
+          riderList.map((coordinate, key) => (
+            <Marker
+              key={key}
+              position={coordinate}
+              icon={
+                new Icon({
+                  iconUrl: markerIconPng,
+                  iconSize: [25, 41],
+                  iconAnchor: [12, 41],
+                })
+              }
+            >
+              <Popup>Holo</Popup>
+            </Marker>
+          ))}
       </MapContainer>
-    </>
+    </div>
   );
 }
 
-export default Ongoing;
+export default MapOngoing;
