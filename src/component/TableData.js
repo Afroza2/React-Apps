@@ -140,61 +140,59 @@ export const TableData = ({ riders }) => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               />
-              <div>{Object.values(riderCo).length > 0
-                  &&
-                Object.values(riderCo).map((m, index) => {
-                  // console.log("split data",m.split(",").map(Number)[0], m.split(",").map(Number)[1])
-                  return (
-                    <Marker
-                      key={index}
-                      position={[
-                        m.split(",").map(Number)[0],
-                        m.split(",").map(Number)[1],
-                      ]}
-                      icon={
-                        new Icon({
-                          iconUrl: riderIcon,
-                          iconSize: [25, 41],
-                          iconAnchor: [12, 41],
-                        })
-                      }
-                    >
-                      <Popup>
-                        <strong>Riders</strong>
-                      </Popup>
-                    </Marker>
-                  );
-                }
-                )
-              }</div>
+              <div>
+                {Object.values(riderCo).length > 0
+                  ? Object.values(riderCo).map((m, index) => {
+                      // console.log("split data",m.split(",").map(Number)[0], m.split(",").map(Number)[1])
+                      return (
+                        <Marker
+                          key={index}
+                          position={[
+                            m.split(",").map(Number)[0],
+                            m.split(",").map(Number)[1],
+                          ]}
+                          icon={
+                            new Icon({
+                              iconUrl: riderIcon,
+                              iconSize: [25, 41],
+                              iconAnchor: [12, 41],
+                            })
+                          }
+                        >
+                          <Popup>
+                            <strong>Riders</strong>
+                          </Popup>
+                        </Marker>
+                      );
+                    })
+                  : ""}
+              </div>
               <div>
                 {Object.values(userCo).length > 0
-                  &&
-                Object.values(userCo).map((m, index) => {
-                  // console.log("split data",m.split(",").map(Number)[0], m.split(",").map(Number)[1])
-                  return (
-                    <Marker
-                      key={index}
-                      position={[
-                        m.split(",").map(Number)[0],
-                        m.split(",").map(Number)[1],
-                      ]}
-                      icon={
-                        new Icon({
-                          iconUrl: userIcon,
-                          iconSize: [25, 41],
-                          iconAnchor: [12, 41],
-                        })
-                      }
-                    >
-                      <Popup>
-                        <strong>Users</strong>
-                      </Popup>
-                    </Marker>
-                  );
-                }
-                )
-              }
+                  ? Object.values(userCo).map((m, index) => {
+                      // console.log("split data",m.split(",").map(Number)[0], m.split(",").map(Number)[1])
+                      return (
+                        <Marker
+                          key={index}
+                          position={[
+                            m.split(",").map(Number)[0],
+                            m.split(",").map(Number)[1],
+                          ]}
+                          icon={
+                            new Icon({
+                              iconUrl: userIcon,
+                              iconSize: [25, 41],
+                              iconAnchor: [12, 41],
+                            })
+                          }
+                        >
+                          <Popup>
+                            <strong>Users</strong>
+                          </Popup>
+                        </Marker>
+                      );
+                    })
+                  : ""}
               </div>
             </MapContainer>
           ) : (
