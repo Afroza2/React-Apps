@@ -5,18 +5,19 @@ import Box from "@mui/material/Box";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import {useStyles} from '../styles.js'
+import { useStyles } from "../styles.js";
 import { TableData } from "../component/TableData";
 import Grid from "@mui/material/Grid";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 
- const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#121212",
-      },
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#121212",
     },
-  });
+  },
+});
+
 const rider_list_url = "https://api.holoapp.tech/rides/brta/get-brta-ride-list";
 const refresh_url = "https://api.holoapp.tech/accounts/refresh";
 const logout_url = "https://api.holoapp.tech/accounts/logout";
@@ -28,7 +29,6 @@ const headers = {
 };
 
 function Completed(props) {
-
   const classes = useStyles(props);
   const [riderList, setRiderList] = useState([]);
   const [riderListFull, setRiderListFull] = useState([]);
@@ -61,7 +61,6 @@ function Completed(props) {
       [e.target.name]: value,
     });
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -122,41 +121,41 @@ function Completed(props) {
       >
         {" "}
         <MuiThemeProvider theme={theme}>
-        <Grid container className={classes.root} item xs={14} md={8}>
-          <CssBaseline />
-          <form noValidate onSubmit={handleSubmit}>
-            <TextField
-              // label="Search"
-              type={"search"}
-              variant="outlined"
-              margin="normal"
-              required
-              // fullWidth
-              id="phone"
-              name="phone"
-              value={data.phone}
-              onChange={handleChange}
-            />
-            <Button
-              type="submit"
-              // fullWidth
-              variant="contained"
-              color = "primary"
-              className={classes.search}
-            >
-              Search
-            </Button>
-          </form>
-
-          <div style={{ height: 500, width: "100%" }}>
+          <Grid container className={classes.root} item xs={14} md={8}>
             <CssBaseline />
-            {data.phone.length === 0 ? (
-              <TableData riders={riderListFull} />
-            ) : (
-              <TableData riders={riderList} />
-            )}
-          </div>
-        </Grid></MuiThemeProvider>
+            <form noValidate onSubmit={handleSubmit}>
+              <TextField
+                type={"search"}
+                variant="outlined"
+                margin="normal"
+                required
+                // fullWidth
+                id="phone"
+                name="phone"
+                value={data.phone}
+                onChange={handleChange}
+              />
+              <Button
+                type="submit"
+                // fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.search}
+              >
+                Search
+              </Button>
+            </form>
+
+            <div style={{ height: 500, width: "100%" }}>
+              <CssBaseline />
+              {data.phone.length === 0 ? (
+                <TableData riders={riderListFull} />
+              ) : (
+                <TableData riders={riderList} />
+              )}
+            </div>
+          </Grid>
+        </MuiThemeProvider>
       </Box>
     </>
   );
