@@ -14,7 +14,6 @@ import {
   Marker,
   Popup,
   TileLayer,
-  CircleMarker,
 } from "react-leaflet";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import userIcon from "leaflet/dist/images/user.png";
@@ -97,27 +96,32 @@ export const TableData = ({ riders }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {riders.map((row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell
-                    align="right"
-                    onClick={() => {
-                      // console.log("before set ride id", ride_id);
-                      // const id = row.id;
-                      // console.log("checking id", id);
-                      setRideId(row.id);
-                      // console.log("after set ride id", ride_id)
-                      handleCellClick(row.id);
-                    }}
-                  >
-                    {row.id}
-                  </TableCell>
-                  <TableCell align="right">{row.status}</TableCell>
-                </TableRow>
-              ))}
+              {riders.map((row) => {
+                return (
+                  row.status === "completed" && (
+                    <TableRow
+                      key={row.id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell
+                        align="right"
+                        onClick={() => {
+                          // console.log("before set ride id", ride_id);
+                          // const id = row.id;
+                          // console.log("checking id", id);
+                          console.log(row.status);
+                          setRideId(row.id);
+                          // console.log("after set ride id", ride_id)
+                          handleCellClick(row.id);
+                        }}
+                      >
+                        {row.id}
+                      </TableCell>
+                      <TableCell align="right">{row.status}</TableCell>
+                    </TableRow>
+                  )
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>

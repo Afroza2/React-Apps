@@ -5,12 +5,18 @@ import Box from "@mui/material/Box";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { Paper } from "@mui/material";
 import {useStyles} from '../styles.js'
 import { TableData } from "../component/TableData";
-import {MarkerList} from "../component/MarkerList"
 import Grid from "@mui/material/Grid";
+import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 
+ const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#121212",
+      },
+    },
+  });
 const rider_list_url = "https://api.holoapp.tech/rides/brta/get-brta-ride-list";
 const refresh_url = "https://api.holoapp.tech/accounts/refresh";
 const logout_url = "https://api.holoapp.tech/accounts/logout";
@@ -115,6 +121,7 @@ function Completed(props) {
         minHeight="100vh"
       >
         {" "}
+        <MuiThemeProvider theme={theme}>
         <Grid container className={classes.root} item xs={14} md={8}>
           <CssBaseline />
           <form noValidate onSubmit={handleSubmit}>
@@ -134,7 +141,7 @@ function Completed(props) {
               type="submit"
               // fullWidth
               variant="contained"
-              color="primary"
+              color = "primary"
               className={classes.search}
             >
               Search
@@ -149,7 +156,7 @@ function Completed(props) {
               <TableData riders={riderList} />
             )}
           </div>
-        </Grid>
+        </Grid></MuiThemeProvider>
       </Box>
     </>
   );

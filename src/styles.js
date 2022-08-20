@@ -1,4 +1,13 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#121212"
+    }
+  }
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(1),
     // backgroundColor: theme.palette.secondary.main,
-    backgroundColor: "#D50000"
+    backgroundColor: "#D50000",
   },
   form: {
     width: "100%",
@@ -19,10 +28,13 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: "#121212"
+    backgroundColor: "#121212",
+    color: "#fff"
   },
   search: {
-      margin: theme.spacing(3),
-    },
+    margin: theme.spacing(3),
+    backgroundColor: "#121212",
+    color: "#fff"
+  },
 }));
 export { useStyles };

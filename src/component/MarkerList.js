@@ -13,7 +13,7 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import MapOngoing from "../pages/MapOngoing";
+import MapOngoing from "../pages/Ongoing";
 const ride_details_url =
   "https://api.holoapp.tech/rides/brta/get-brta-ride-details";
 

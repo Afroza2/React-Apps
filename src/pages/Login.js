@@ -10,9 +10,17 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import Stack from "@mui/material/Stack";
-import {useStyles} from '../styles.js'
+import { useStyles } from "../styles.js";
 
+import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 
+ const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#121212",
+      },
+    },
+  });
 
 const login_url = "https://api.holoapp.tech/accounts/login";
 
@@ -24,7 +32,7 @@ export default function Login(props) {
   });
 
   const [errors, setErrors] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("")
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -34,9 +42,6 @@ export default function Login(props) {
     });
   };
 
-  // const tokenChecking = ( access, refresh, data) => {
-  //
-  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,7 +68,7 @@ export default function Login(props) {
           console.log(error.response);
           console.log("server responded");
           setErrors(true);
-          setErrorMsg(error.response.data.detail)
+          setErrorMsg(error.response.data.detail);
         } else if (error.request) {
           console.log("network error");
         } else {
@@ -75,58 +80,54 @@ export default function Login(props) {
   return (
     <Grid container className={classes.root} item xs={12} md={5}>
       <CssBaseline />
-
-      <Grid>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
-          <TextField
-            label="Username"
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            name="username"
-            value={data.username}
-            onChange={handleChange}
-          />
-          <TextField
-            label="Password"
-            type={"password"}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="password"
-            name="password"
-            value={data.password}
-            onChange={handleChange}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-        </form>
-        <Stack sx={{ width: "100%" }} spacing={2}>
-          {errors ? (
-            <Alert severity="error">
-              {errorMsg}
-            </Alert>
-          ) : (
-            ""
-          )}
-        </Stack>
-      </Grid>
+      <MuiThemeProvider theme={theme}>
+        <Grid>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            <TextField
+              label="Username"
+              variant="outlined"
+              color="primary"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              name="username"
+              value={data.username}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Password"
+              type={"password"}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="password"
+              name="password"
+              value={data.password}
+              onChange={handleChange}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              color="primary"
+              variant="contained"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+          </form>
+          <Stack sx={{ width: "100%" }} spacing={2}>
+            {errors ? <Alert severity="error">{errorMsg}</Alert> : ""}
+          </Stack>
+        </Grid>
+      </MuiThemeProvider>
     </Grid>
   );
 }
