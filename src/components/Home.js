@@ -6,7 +6,7 @@ console.log("access", access);
 const refresh = localStorage.getItem("refreshToken");
 console.log("refresh", refresh);
 
-const details = "https://api.holoapp.tech/rides/brta/get-brta-ride-list";
+const details = "an api";
 const headers = {
   "Content-Type": "application/json",
   Authorization: `Bearer ${access}`,
