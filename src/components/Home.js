@@ -7,6 +7,8 @@ const refresh = localStorage.getItem("refreshToken");
 console.log("refresh", refresh);
 
 const details = "an api";
+const logout_url = "your logout url"
+const refresh_url = "your refresh url"
 const headers = {
   "Content-Type": "application/json",
   Authorization: `Bearer ${access}`,
