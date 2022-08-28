@@ -24,6 +24,24 @@ export default function Home() {
       })
       .catch((error) => {
         console.log(error);
+      if (error.response.status === 401) {
+          console.log(error.response);
+
+          axios.post(refresh_url, refresh).then((request) => 
+ {
+            if (request.status === 200) {
+              console.log("refresh valid");
+              localStorage.setItem("accessToken", request.data["access"]);
+            } else if (request.status === 401) {
+              console.log("invalid so logout");
+              axios.post(logout_url, headers).then((response) => {
+                localStorage.setItem("accessToken", "");
+                localStorage.setItem("refreshToken", "");
+                console.log("access", response.data["access"]);
+                console.log("refresh", response.data["refresh"]);
+
+                window.location.href = "/login";
+              });
       });
   }, [data]);
 
