@@ -21,7 +21,7 @@ import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
     },
   });
 
-const login_url = "https://api.holoapp.tech/accounts/login";
+const login_url = "login api";
 
 export default function Login(props) {
   const classes = useStyles(props);
@@ -30,8 +30,6 @@ export default function Login(props) {
     password: "",
   });
 
-  const [errors, setErrors] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e) => {
     const value = e.target.value;
